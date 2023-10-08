@@ -1,0 +1,307 @@
+***************
+** Arguments **
+***************
+arcface_m: 0.5
+arcface_s: 5.0
+backbone: 
+config_file: configs/trainers/dg/vanilla/pacs.yaml
+dataset_config_file: configs/datasets/dg/pacs_source_free.yaml
+eval_only: False
+gpu: None
+head: 
+load_epoch: None
+model_dir: 
+no_train: False
+num_styles: 80
+opts: ['MODEL.BACKBONE.NAME', 'resnet50_clip', 'DATALOADER.TRAIN_X.SAMPLER', 'RandomSampler', 'DATALOADER.TRAIN_X.N_DOMAIN', '0', 'DATALOADER.TRAIN_X.BATCH_SIZE', '128', 'OPTIM.MAX_EPOCH', '80', 'DATASET.NAME', 'PACS_SF', 'OPTIM.LR', '0.008', 'DATASET.ROOT', '/data2/tyl/datasets']
+output_dir: output/pacs/NS80_lr8_wohead_arcface_5_0.5_E80_resnet50_clip/seed2
+resume: 
+root: /data2/tyl/datasets
+seed: 2
+source_domains: ['none']
+target_domains: ['art_painting', 'cartoon', 'photo', 'sketch']
+trainer: WOPA_clip
+transforms: None
+txts_path: /data2/tyl/WOPA_v3/dassl/txts
+use_cuda: [True]
+************
+** Config **
+************
+ARCFACE_M: 0.5
+ARCFACE_S: 5.0
+DATALOADER:
+  K_TRANSFORMS: 1
+  NUM_WORKERS: 8
+  RETURN_IMG0: False
+  TEST:
+    BATCH_SIZE: 32
+    SAMPLER: SequentialSampler
+  TRAIN_U:
+    BATCH_SIZE: 32
+    N_DOMAIN: 0
+    N_INS: 16
+    SAME_AS_X: True
+    SAMPLER: RandomSampler
+  TRAIN_X:
+    BATCH_SIZE: 128
+    N_DOMAIN: 0
+    N_INS: 16
+    SAMPLER: RandomSampler
+DATASET:
+  ALL_AS_UNLABELED: False
+  CIFAR_C_LEVEL: 1
+  CIFAR_C_TYPE: 
+  NAME: PACS_SF
+  NUM_LABELED: -1
+  NUM_SHOTS: -1
+  ROOT: /data2/tyl/datasets
+  SOURCE_DOMAINS: ['none']
+  STL10_FOLD: -1
+  TARGET_DOMAINS: ['art_painting', 'cartoon', 'photo', 'sketch']
+  VAL_PERCENT: 0.1
+INPUT:
+  COLORJITTER_B: 0.4
+  COLORJITTER_C: 0.4
+  COLORJITTER_H: 0.1
+  COLORJITTER_S: 0.4
+  CROP_PADDING: 4
+  CUTOUT_LEN: 16
+  CUTOUT_N: 1
+  GB_K: 21
+  GB_P: 0.5
+  GN_MEAN: 0.0
+  GN_STD: 0.15
+  INTERPOLATION: bilinear
+  NO_TRANSFORM: False
+  PIXEL_MEAN: [0.48145466, 0.4578275, 0.40821073]
+  PIXEL_STD: [0.26862954, 0.26130258, 0.27577711]
+  RANDAUGMENT_M: 10
+  RANDAUGMENT_N: 2
+  RGS_P: 0.2
+  RRCROP_SCALE: (0.08, 1.0)
+  SIZE: (224, 224)
+  TRANSFORMS: ('normalize',)
+MODEL:
+  BACKBONE:
+    NAME: resnet50_clip
+    PRETRAINED: True
+  HEAD:
+    ACTIVATION: relu
+    BN: True
+    DROPOUT: 0.0
+    HIDDEN_LAYERS: ()
+    NAME: 
+    REDUCTION_RATIO: 2
+  INIT_WEIGHTS: 
+OPTIM:
+  ADAM_BETA1: 0.9
+  ADAM_BETA2: 0.999
+  BASE_LR_MULT: 0.1
+  GAMMA: 0.1
+  LR: 0.008
+  LR_SCHEDULER: cosine
+  MAX_EPOCH: 80
+  MOMENTUM: 0.9
+  NAME: sgd
+  NEW_LAYERS: ()
+  RMSPROP_ALPHA: 0.99
+  SGD_DAMPNING: 0
+  SGD_NESTEROV: False
+  STAGED_LR: False
+  STEPSIZE: (-1,)
+  WARMUP_CONS_LR: 1e-05
+  WARMUP_EPOCH: -1
+  WARMUP_MIN_LR: 1e-05
+  WARMUP_RECOUNT: True
+  WARMUP_TYPE: linear
+  WEIGHT_DECAY: 0.0005
+OUTPUT_DIR: output/pacs/NS80_lr8_wohead_arcface_5_0.5_E80_resnet50_clip/seed2
+RESUME: 
+SEED: 2
+SOMENAME:
+  
+TEST:
+  COMPUTE_CMAT: False
+  EVALUATOR: Classification
+  FINAL_MODEL: last_step
+  NO_TEST: False
+  PER_CLASS_RESULT: False
+  SPLIT: test
+TRAIN:
+  CHECKPOINT_FREQ: 0
+  COUNT_ITER: train_x
+  PRINT_FREQ: 10
+TRAINER:
+  CDAC:
+    CLASS_LR_MULTI: 10
+    P_THRESH: 0.95
+    RAMPUP_COEF: 30
+    RAMPUP_ITRS: 1000
+    STRONG_TRANSFORMS: ()
+    TOPK_MATCH: 5
+  CROSSGRAD:
+    ALPHA_D: 0.5
+    ALPHA_F: 0.5
+    EPS_D: 1.0
+    EPS_F: 1.0
+  DAEL:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DAELDG:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 0.5
+  DDAIG:
+    ALPHA: 0.5
+    CLAMP: False
+    CLAMP_MAX: 1.0
+    CLAMP_MIN: -1.0
+    G_ARCH: 
+    LMDA: 0.3
+    WARMUP: 0
+  DOMAINMIX:
+    ALPHA: 1.0
+    BETA: 1.0
+    TYPE: crossdomain
+  ENTMIN:
+    LMDA: 0.001
+  FIXMATCH:
+    CONF_THRE: 0.95
+    STRONG_TRANSFORMS: ()
+    WEIGHT_U: 1.0
+  M3SDA:
+    LMDA: 0.5
+    N_STEP_F: 4
+  MCD:
+    N_STEP_F: 4
+  MEANTEACHER:
+    EMA_ALPHA: 0.999
+    RAMPUP: 5
+    WEIGHT_U: 1.0
+  MIXMATCH:
+    MIXUP_BETA: 0.75
+    RAMPUP: 20000
+    TEMP: 2.0
+    WEIGHT_U: 100.0
+  MME:
+    LMDA: 0.1
+  NAME: WOPA_clip
+  NUM_STYLES: 80
+  SE:
+    CONF_THRE: 0.95
+    EMA_ALPHA: 0.999
+    RAMPUP: 300
+TXTS_PATH: /data2/tyl/WOPA_v3/dassl/txts
+USE_CUDA: True
+VERBOSE: True
+VERSION: 1
+Collecting env info ...
+** System info **
+PyTorch version: 1.10.1+cu111
+Is debug build: False
+CUDA used to build PyTorch: 11.1
+ROCM used to build PyTorch: N/A
+
+OS: CentOS Linux 7 (Core) (x86_64)
+GCC version: (GCC) 7.3.1 20180303 (Red Hat 7.3.1-5)
+Clang version: Could not collect
+CMake version: Could not collect
+Libc version: glibc-2.17
+
+Python version: 3.7.13 (default, Mar 29 2022, 02:18:16)  [GCC 7.5.0] (64-bit runtime)
+Python platform: Linux-3.10.0-1160.25.1.el7.x86_64-x86_64-with-centos-7.9.2009-Core
+Is CUDA available: True
+CUDA runtime version: 11.4.100
+GPU models and configuration: 
+GPU 0: GeForce RTX 3090
+GPU 1: GeForce RTX 3090
+GPU 2: GeForce RTX 3090
+GPU 3: GeForce RTX 3090
+GPU 4: GeForce RTX 3090
+GPU 5: GeForce RTX 3090
+GPU 6: GeForce RTX 3090
+
+Nvidia driver version: 460.80
+cuDNN version: Could not collect
+HIP runtime version: N/A
+MIOpen runtime version: N/A
+
+Versions of relevant libraries:
+[pip3] mypy-extensions==0.4.3
+[pip3] numpy==1.21.6
+[pip3] open-clip-torch==2.20.0
+[pip3] torch==1.10.1+cu111
+[pip3] torchaudio==0.10.1+rocm4.1
+[pip3] torchvision==0.11.2+cu111
+[conda] blas                      1.0                         mkl    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+[conda] faiss-cpu                 1.7.2           py3.7_h2a577fa_0_cpu    pytorch
+[conda] libfaiss                  1.7.2            h2bc3f7f_0_cpu    pytorch
+[conda] mkl                       2021.4.0           h06a4308_640    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+[conda] mkl-service               2.4.0            py37h7f8727e_0    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+[conda] mkl_fft                   1.3.1            py37hd3c417c_0    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+[conda] mkl_random                1.2.2            py37h51133e4_0    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+[conda] mypy-extensions           0.4.3                    pypi_0    pypi
+[conda] numpy                     1.21.6                   pypi_0    pypi
+[conda] numpy-base                1.21.5           py37ha15fc14_3    https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+[conda] open-clip-torch           2.20.0                   pypi_0    pypi
+[conda] torch                     1.1.0                    pypi_0    pypi
+[conda] torchaudio                0.10.1+rocm4.1           pypi_0    pypi
+[conda] torchvision               0.2.2                    pypi_0    pypi
+        Pillow (9.2.0)
+
+Loading trainer: WOPA_clip
+Building model
+Backbone: resnet50_clip
+# params: 102,014,305
+Loading dataset: PACS_SF
+Building transform_test
++ resize the smaller edge to 224
++ 224x224 center crop
++ to torch tensor of range [0, 1]
++ normalization (mean=[0.48145466, 0.4578275, 0.40821073], std=[0.26862954, 0.26130258, 0.27577711])
+---------  ----------------------------------------------
+Dataset    PACS_SF
+Source     ['none']
+Target     ['art_painting', 'cartoon', 'photo', 'sketch']
+# classes  7
+# train_x  560
+# test 0   2,048
+# test 1   2,344
+# test 2   1,670
+# test 3   3,928
+---------  ----------------------------------------------
+Loading evaluator: Classification
+No checkpoint found, train from scratch
+Initialize tensorboard (log_dir=output/pacs/NS80_lr8_wohead_arcface_5_0.5_E80_resnet50_clip/seed2/tensorboard)
+Finish training
+Deploy the last-epoch model
+Evaluate on the *test* set
+=> result
+* total: 2,048
+* correct: 1,872
+* accuracy: 91.4%
+* error: 8.6%
+* macro_f1: 91.3%
+Evaluate on the *test* set
+=> result
+* total: 2,344
+* correct: 2,181
+* accuracy: 93.0%
+* error: 7.0%
+* macro_f1: 93.9%
+Evaluate on the *test* set
+=> result
+* total: 1,670
+* correct: 1,661
+* accuracy: 99.5%
+* error: 0.5%
+* macro_f1: 99.4%
+Evaluate on the *test* set
+=> result
+* total: 3,928
+* correct: 3,161
+* accuracy: 80.5%
+* error: 19.5%
+* macro_f1: 81.8%
+Elapsed: 0:00:21
